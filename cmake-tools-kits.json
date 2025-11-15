@@ -1,0 +1,11 @@
+[
+  {
+    "name": "GCC reflection (P2996)",
+    "toolchainFile": "${workspaceFolder}/.devcontainer/gcc-toolchain.cmake",
+    "compilers": {
+      "C": "/opt/gcc-reflection/bin/gcc",
+      "CXX": "/opt/gcc-reflection/bin/g++"
+    }
+  }
+]
+

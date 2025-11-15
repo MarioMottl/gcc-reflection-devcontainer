@@ -1,0 +1,55 @@
+{
+  "name": "GCC-Reflection Dev",
+  "image": "ghcr.io/mariomottl/gcc-reflection-image:latest",
+
+  "remoteUser": "vscode",
+
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=cached",
+
+  "containerEnv": {
+    "CC": "/opt/gcc-reflection/bin/gcc",
+    "CXX": "/opt/gcc-reflection/bin/g++"
+  },
+
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,readonly,type=bind"
+  ],
+
+  "postStartCommand": "bash .devcontainer/post-start.sh",
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "cmake.configureOnOpen": true,
+        "cmake.sourceDirectory": "${workspaceFolder}",
+        "cmake.buildDirectory": "${workspaceFolder}/build",
+        "cmake.configureArgs": [
+          "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+        ],
+        "clangd.compilationDatabasePath": "${workspaceFolder}/build",
+        "cmake.useCMakePresets": "never",
+
+        "cmake.defaultKits": ["GCC reflection (P2996)"],
+        "cmake.additionalKits": ["${workspaceFolder}/cmake-tools-kits.json"]
+      },
+      "extensions": [
+        "ms-vscode.cpptools",
+        "llvm-vs-code-extensions.vscode-clangd",
+        "twxs.cmake",
+        "ms-vscode.cmake-tools"
+      ]
+    },
+    "jetbrains": {
+      "backend": "CLion",
+      "settings": {
+        "com.intellij:app:EditorSettings.is_ensure_newline_at_eof": true,
+        "com.intellij:app:EditorSettings.remove_trailing_blank_lines": true,
+        "com.intellij:app:EditorSettings.keep_trailing_space_on_caret_line": false
+      },
+      "plugins": [
+      ]
+    }
+  }
+}
+
